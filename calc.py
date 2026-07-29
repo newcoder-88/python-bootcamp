@@ -1,0 +1,10 @@
+x = int(input("pick a number: "))
+y = int(input("pick a second number:"))
+
+print("addition: " , x + y)
+print("subtraction: " , x - y)
+print("multiplication: " , x * y)
+print("division: " , x / y)
+print("remainder: " , x % y )
+print("floor division: "  , x // y)
+print("exponent: " , x ** y)
