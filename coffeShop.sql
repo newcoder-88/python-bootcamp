@@ -14,3 +14,36 @@ CREATE TABLE Members (
     Name VARCHAR(50) ,
     Email VARCHAR(50) ,
     JoinDate DATE) ;
+
+INSERT INTO Members (MemberID, Name, Email, JoinDate DATE)
+VALUES (1, 'Sarah', 'sarah@example.com', '2026-08-03');
+INSERT INTO Members (MemberID, Name, Email, JoinDate)
+VALUES (2, 'Ahmed', 'ahmed@example.com', '2026-08-02');
+
+
+INSERT INTO Products (ProductID, Name, Price)
+VALUES(1, 'MATCHA' , 25);
+INSERT INTO Products (ProductID, Name, Price)
+VALUES(2, 'LATTE' , 15);
+INSERT INTO Products (ProductID, Name, Price)
+VALUES(3, 'ORANGE JUICE' , 30);
+SELECT * FROM Products;
+SELECT Name FROM Products;
+SELECT * FROM Products WHERE ProductID = 2 ;
+
+SELECT * FROM Products where Price = 25 ; 
+SELECT Name , Price FROM Products ;
+SELECT * FROM Products ORDER BY price DESC; 
+
+
+UPDATE  Products 
+SET Price = 18 
+WHERE Name = 'LATTE' ;
+DELETE FROM Products 
+WHERE Name = 'ORANGE JUICE';
+
+SELECT COUNT(*) FROM Products ; 
+SELECT SUM(Price) FROM Products ; 
+SELECT AVG(Price) FROM Products ; 
+SELECT MIN(Price) FROM Products ; 
+SELECT MAX(Price) FROM Products ;
