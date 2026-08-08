@@ -47,3 +47,10 @@ SELECT SUM(Price) FROM Products ;
 SELECT AVG(Price) FROM Products ; 
 SELECT MIN(Price) FROM Products ; 
 SELECT MAX(Price) FROM Products ;
+
+
+
+
+SELECT * FROM Products WHERE Price>15 AND Price<30:
+SELECT * FROM Products where Name = 'MATCHA' OR Name = 'LATTE';
+SELECT * FROM Products where Price IN (15,25,30);
