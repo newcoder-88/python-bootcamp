@@ -59,4 +59,13 @@ SELECT * FROM Products where Price IN (15,25,30);
 
 SELECT * FROM Products WHERE Name LIKE '%a%';
 SELECT * FROM Products WHERE Name LIKE 'M%' ; 
-SELECT * FROM Products WHERE Name LIKE '%e'
+SELECT * FROM Products WHERE Name LIKE '%e' ; 
+
+
+
+SELECT * FROM Products WHERE Price BETWEEN 15 AND 30 ; 
+SELECT * FROM Products WHERE Price BETWEEN 10 AND 25 ; 
+
+
+
+SELECT * FROM Products WHERE Price BETWEEN 10 AND 30 AND Name LIKE '%a%' ; 
