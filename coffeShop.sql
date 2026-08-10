@@ -69,3 +69,8 @@ SELECT * FROM Products WHERE Price BETWEEN 10 AND 25 ;
 
 
 SELECT * FROM Products WHERE Price BETWEEN 10 AND 30 AND Name LIKE '%a%' ; 
+
+
+SELECT Price , count(*) FROM Products GROUP BY Price;
+SELECT Price , AVG(Price) FROM Products GROUP BY Price; 
+SELECT Price , SUM(Price) FROM Products GROUP BY Price ;
