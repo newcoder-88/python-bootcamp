@@ -78,3 +78,6 @@ SELECT Price , SUM(Price) FROM Products GROUP BY Price ;
 
 SELECT Price , COUNT(*) FROM Products GROUP BY Price HAVING COUNT(*) > 1;
 SELECT Price , AVG(Price) FROM Products GROUP BY Price HAVING AVG(Price) > 20;
+SELECT Price , AVG(Price) FROM Products GROUP BY Price HAVING AVG(Price) > 20;
+
+SELECT Price , SUM(Price) FROM Products WHERE Price>10 GROUP BY Price HAVING SUM(Price) > 30;
