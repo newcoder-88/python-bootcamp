@@ -85,3 +85,6 @@ SELECT Name , AVG(Price) FROM Products WHERE Price > 10 GROUP BY Name HAVING AVG
 
 SELECT Price , COUNT(*) FROM Products GROUP BY Price HAVING COUNT(*) > 1 ORDER BY COUNT(*) DESC ;
 SELECT Price , SUM(Price) FROM Products GROUP BY Price HAVING SUM(Price) > 30 ORDER BY SUM(price) DESC;
+
+SELECT DISTINCT Price FROM Products WHERE Price > 10 ORDER BY Price DESC;
+SELECT  Price , COUNT(Price) FROM Products WHERE Price > 10 GROUP BY Price HAVING COUNT(Price) > 1 ORDER BY Price DESC;
