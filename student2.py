@@ -39,7 +39,8 @@ def find_student(students, name):
     for student in students:
         if student["name"] == name:
             return student
-#student = find_student(students, "Ali")
+    return None
+#student = find_student(students, "David")
 #print(student)
 
 def find_students_by_age(students, age):
@@ -57,5 +58,16 @@ def find_oldest_student(students):
         if student["age"] > oldest["age"]:
             oldest  = student
     return oldest
-oldest = find_oldest_student(students)
-print(oldest)
+#oldest = find_oldest_student(students)
+#print(oldest)
+
+def print_student(students, name):
+    student = find_student(students, name)
+    if student is None: 
+        print("Student not found")
+    else:
+        print("Name:" , student["name"])
+        print("Age:" , student["age"])
+
+print_student(students, "David")
+print_student(students, "Sarah")
