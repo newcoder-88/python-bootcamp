@@ -27,3 +27,6 @@ INSERT INTO Courses (id, student_id, course) VALUES
 SELECT name , course FROM Students  INNER JOIN Courses ON Students.id = Courses.student_id;
 SELECT Students.name , Courses.course FROM Students INNER JOIN Courses ON Students.id = Courses.student_id where Students.name = 'sarah';
 SELECT Students.name , Courses.course FROM Students INNER JOIN Courses ON Students.id = Courses.student_id ORDER BY Students.name ; 
+
+SELECT Students.name , Courses.course FROM Students LEFT JOIN Courses ON Students.id = Courses.student_id;
+SELECT Students.name , Courses.course FROM Students LEFT JOIN Courses ON Students.id = Courses.student_id WHERE Courses.course IS NULL;

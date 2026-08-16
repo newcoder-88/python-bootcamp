@@ -10,14 +10,19 @@ def update_student_age(students, name, new_age):
     for student in students:
         if student["name"] == name:
             student["age"] = new_age
-#update_student_age(students, "Ali", 25)
-#print(students)
+            return True
+    return False
+#result = update_student_age(students, "Ali", 25)
+#print(result)
+#result = update_student_age(students, "David", 30)
+#print(result)
 
 def remove_student(students, name):
     for student in students:
         if student["name"] == name: 
             students.remove(student)
-            return
+            return True
+    return False
 #remove_student(students, "Ali")
 #print(students)
 
@@ -69,5 +74,17 @@ def print_student(students, name):
         print("Name:" , student["name"])
         print("Age:" , student["age"])
 
-print_student(students, "David")
-print_student(students, "Sarah")
+#print_student(students, "David")
+#print_student(students, "Sarah")
+
+
+def update_student(students, name, new_age):
+    for student in students: 
+        if student["name"] == name:
+            student["age"]= new_age
+            return True
+    return False
+result= update_student(students, "Ali", 25)
+print(result)
+result= update_student(students, "David", 30)
+print(result)
