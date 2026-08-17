@@ -30,3 +30,6 @@ SELECT Students.name , Courses.course FROM Students INNER JOIN Courses ON Studen
 
 SELECT Students.name , Courses.course FROM Students LEFT JOIN Courses ON Students.id = Courses.student_id;
 SELECT Students.name , Courses.course FROM Students LEFT JOIN Courses ON Students.id = Courses.student_id WHERE Courses.course IS NULL;
+
+SELECT Students.name , Courses.course FROM Students RIGHT JOIN Courses ON Students.id = Courses.student_id;
+SELECT Students.name , Courses.course FROM Students RIGHT JOIN Courses ON Students.id = Courses.student_id WHERE Students.name = 'Sarah';
