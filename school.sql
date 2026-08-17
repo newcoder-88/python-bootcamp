@@ -33,3 +33,7 @@ SELECT Students.name , Courses.course FROM Students LEFT JOIN Courses ON Student
 
 SELECT Students.name , Courses.course FROM Students RIGHT JOIN Courses ON Students.id = Courses.student_id;
 SELECT Students.name , Courses.course FROM Students RIGHT JOIN Courses ON Students.id = Courses.student_id WHERE Students.name = 'Sarah';
+
+SELECT Students.name ,COUNT(Courses.course) FROM Students LEFT JOIN Courses ON Students.id = Courses.student_id GROUP BY Students.name ; 
+SELECT Students.name ,, COUNT(Courses.course) FROM Students LEFT JOIN Courses ON Students.id = Courses.student_id GROUP BY Students.name HAVING COUNT(Courses.course)>1 ; 
+SELECT Students.name ,, COUNT(Courses.course) FROM Students LEFT JOIN Courses ON Students.id = Courses.student_id GROUP BY Students.name ORDER BY COUNT(Courses.course) DESC; 
