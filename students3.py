@@ -48,4 +48,4 @@ def find_students_between_ages(students, min_age, max_age):
         if student["age"] >= min_age and student["age"]<= max_age:
             result.append(student)
     return result
-print(find_students_between_ages(students, 24, 29))
+print(find_students_between_ages(students, 24, 28))
