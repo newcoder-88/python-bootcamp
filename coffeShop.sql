@@ -8,18 +8,32 @@ CREATE TABLE Products (
     Name VARCHAR(100),
     Price DECIMAL(10,2)
 );
-
 CREATE TABLE Members ( 
     MemberID INT PRIMARY KEY ,
     Name VARCHAR(50) ,
     Email VARCHAR(50) ,
     JoinDate DATE) ;
+CREATE TABLE Customer(
+    CustomerID INT PRIMARY KEY , 
+    Name VARCHAR(100),
+    Email VARCHAR(100)
+);
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT ,
+    OrderDate DATE ,
+    FOREIGN KEY(CustomerID) REFERENCES Customer(CustomerID) 
+);
 
 INSERT INTO Members (MemberID, Name, Email, JoinDate DATE)
 VALUES (1, 'Sarah', 'sarah@example.com', '2026-08-03');
 INSERT INTO Members (MemberID, Name, Email, JoinDate)
 VALUES (2, 'Ahmed', 'ahmed@example.com', '2026-08-02');
 
+INSERT INTO Customer (CustomerID , Name , Email)
+VALUES(1 , 'Sarah' , 'sarah@example.com')
+INSERT INTO Orders (OrderID , CustomerID , OrderDate)
+VALUES(1 , 1 , '2026-08-19')
 
 INSERT INTO Products (ProductID, Name, Price)
 VALUES(1, 'MATCHA' , 25);
