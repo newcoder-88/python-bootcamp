@@ -121,3 +121,15 @@ SELECT DISTINCT Price FROM Products WHERE Price > 10 ORDER BY Price DESC;
 SELECT  Price , COUNT(Price) FROM Products WHERE Price > 10 GROUP BY Price HAVING COUNT(Price) > 1 ORDER BY Price DESC;
 
 SELECT OrderItems.OrderItemID , Products.Name , OrderItems.quantity FROM OrderItems JOIN Products ON OrderItems.ProductID = Products.ProductID; 
+
+SELECT Orders.OrderID , Products.Name , OrderItems.quantity 
+FROM Orders 
+JOIN OrderItems ON OrderItems.OrderID = Orders.OrderID,  
+JOIN Products ON  Products.ProductID = OrderItems.ProductID ; 
+
+SELECT Customer.Name , Orders.OrderID , Products.Name , OrderItems.quantity 
+FROM Customer
+JOIN Orders ON Customer.CustomerID = Orders.CustomerID  
+JOIN OrderItems ON Orders.OrderID = OrderItems.OrderID  
+JOIN Products ON OrderItems.ProductID = Products.ProductID 
+WHERE Customer.Name = 'Sarah' AND OrderItems.quantity > 1 ;
