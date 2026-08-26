@@ -95,7 +95,7 @@ def create_order_item(data, product_id, quantity):
     return new_order
 create_order_item(data, 1, 2)
 create_order_item(data, 2, 1)
-#print(data["order_items"])
+print(data["order_items"])
 
 def calculate_order_total(data):
     total=0 
@@ -112,8 +112,10 @@ def create_order(order_id, customer_name, data):
     if len(data["order_items"]) == 0 :
         return None
     order_total =  calculate_order_total(data)
-    new_order= {"order_id": order_id , "customer": valid_name , "items": data["order_items"] ,"total": order_total }
+    order_items_copy = data["order_items"].copy()
+    new_order= {"order_id": order_id , "customer": valid_name , "items": order_items_copy ,"total": order_total }
     data["Orders"].append(new_order)
+    data["order_items"]=[]
     return new_order
 create_order(1, "Sarah", data)
 
@@ -141,3 +143,6 @@ def count_orders(data):
         count+=1 
     return count
 #print(count_orders(data))
+
+print("orders" , data["Orders"])
+print("items" , data[ "order_items"])
