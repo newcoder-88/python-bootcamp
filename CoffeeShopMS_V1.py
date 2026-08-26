@@ -106,18 +106,27 @@ def calculate_order_total(data):
 
 #--------------Orders--------------
 def create_order(order_id, customer_name, data):
+    if order_id <= 0:
+        return None
+     
     valid_name = customer_name.strip().title()
     if valid_name == "":
         return None
+    
     if len(data["order_items"]) == 0 :
         return None
+
+    order_exists = find_order_by_id(data , order_id)
+    if order_exists is not None : 
+        return None
+
     order_total =  calculate_order_total(data)
     order_items_copy = data["order_items"].copy()
     new_order= {"order_id": order_id , "customer": valid_name , "items": order_items_copy ,"total": order_total }
     data["Orders"].append(new_order)
     data["order_items"]=[]
     return new_order
-create_order(1, "Sarah", data)
+
 
 
 
@@ -127,6 +136,7 @@ def find_order_by_id(data, order_id):
             return order
     return None
 order = find_order_by_id(data, 1)
+create_order(1, "Sarah", data)
 
 
 def remove_order(data, order_id):
@@ -144,5 +154,3 @@ def count_orders(data):
     return count
 #print(count_orders(data))
 
-print("orders" , data["Orders"])
-print("items" , data[ "order_items"])

@@ -142,3 +142,13 @@ SELECT Products.Name , SUM(OrderItems.quantity) AS TotalSold
 FROM Products 
 OIN OrderItems ON OrderItems.ProductID = Products.ProductID  
 GROUP BY Products.Name HAVING SUM(OrderItems.quantity) > 2 
+
+
+SELECT Products.Name , SUM(Products.price * OrderItems.quantity) AS TotalRevenue FROM Products JOIN OrderItems ON OrderItems.ProductID = Products.ProductID  GROUP BY Products.Name;
+SELECT Products.Name , SUM(Products.price * OrderItems.quantity) AS TotalRevenue FROM Products JOIN OrderItems ON OrderItems.ProductID = Products.ProductID  GROUP BY Products.Name HAVING SUM(Products.price * OrderItems.quantity) > 50 ; 
+SELECT Products.Name , SUM(Products.price * OrderItems.quantity) AS TotalRevenue FROM Products JOIN OrderItems ON OrderItems.ProductID = Products.ProductID  GROUP BY Products.Name HAVING SUM(Products.price * OrderItems.quantity) > 50 ORDER BY SUM(Products.price * OrderItems.quantity) DESC; 
+SELECT Customer.Name , SUM(Products.price * OrderItems.quantity) AS Total FROM Customer 
+JOIN Orders ON Orders.CustomerID = Customer.CustomerID 
+JOIN OrderItems ON OrderItems.OrderID = Orders.OrderID
+JOIN Products ON Products.ProductID = OrderItems.ProductID
+GROUP BY Customer.Name;
