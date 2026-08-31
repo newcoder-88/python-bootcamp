@@ -152,3 +152,9 @@ JOIN Orders ON Orders.CustomerID = Customer.CustomerID
 JOIN OrderItems ON OrderItems.OrderID = Orders.OrderID
 JOIN Products ON Products.ProductID = OrderItems.ProductID
 GROUP BY Customer.Name;
+
+
+SELECT Customer.Name , COUNT(Orders.OrderID) AS totalOrders FROM Customer LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID GROUP BY Customer.Name;
+SELECT Customer.Name , COUNT(Orders.OrderID) AS totalOrders FROM Customer LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID GROUP BY Customer.Name HAVING COUNT(Orders.OrderID) > 1;
+SELECT Customer.Name , COUNT(Orders.OrderID) AS totalOrders FROM Customer LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID GROUP BY Customer.Name ORDER BY COUNT(Orders.OrderID) DESC;
+SELECT Customer.Name , COUNT(Orders.OrderID) AS totalOrders FROM Customer LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID GROUP BY Customer.Name HAVING COUNT(Orders.OrderID) > 1 ORDER BY COUNT(Orders.OrderID) DESC;
