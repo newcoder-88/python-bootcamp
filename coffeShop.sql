@@ -1,13 +1,13 @@
 
-CREATE DATABASE CoffeeShop;
+--CREATE DATABASE CoffeeShop;
 
-USE CoffeeShop;
+--USE CoffeeShop;
 
+--SELECT DATABASE();
 CREATE TABLE Products (
     ProductID INT PRIMARY KEY,
     Name VARCHAR(100),
-    Price DECIMAL(10,2)
-);
+    Price DECIMAL(10,2));
 INSERT INTO Products (ProductID, Name, Price)
 VALUES(1, 'MATCHA' , 25);
 INSERT INTO Products (ProductID, Name, Price)
@@ -15,13 +15,13 @@ VALUES(2, 'LATTE' , 15);
 INSERT INTO Products (ProductID, Name, Price)
 VALUES(3, 'ORANGE JUICE' , 30);
 
-
+SELECT * FROM Members;
 CREATE TABLE Members ( 
     MemberID INT PRIMARY KEY ,
     Name VARCHAR(50) ,
     Email VARCHAR(50) ,
-    JoinDate DATE) ;
-INSERT INTO Members (MemberID, Name, Email, JoinDate DATE)
+    JoinDate DATE);
+INSERT INTO Members (MemberID, Name, Email, JoinDate )
 VALUES (1, 'Sarah', 'sarah@example.com', '2026-08-03');
 INSERT INTO Members (MemberID, Name, Email, JoinDate)
 VALUES (2, 'Ahmed', 'ahmed@example.com', '2026-08-02');
@@ -33,9 +33,7 @@ CREATE TABLE Customer(
     Email VARCHAR(100)
 );
 INSERT INTO Customer (CustomerID , Name , Email)
-VALUES(1 , 'Sarah' , 'sarah@example.com')
-INSERT INTO Orders (OrderID , CustomerID , OrderDate)
-VALUES(1 , 1 , '2026-08-19')
+VALUES(1 , 'Sarah' , 'sarah@example.com');
 
 CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
@@ -43,7 +41,8 @@ CREATE TABLE Orders (
     OrderDate DATE ,
     FOREIGN KEY(CustomerID) REFERENCES Customer(CustomerID) 
 );
-
+INSERT INTO Orders (OrderID , CustomerID , OrderDate)
+VALUES(1 , 1 , '2026-08-19');
 
 CREATE TABLE OrderItems (
     OrderItemID INT PRIMARY KEY,
@@ -52,10 +51,11 @@ CREATE TABLE OrderItems (
     quantity INT,
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID), 
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-)
+);
  INSERT INTO OrderItems ( OrderItemID , OrderID , ProductID , quantity) 
- VALUES ( 1 , 1 , 1 , 2 )
+ VALUES ( 1 , 1 , 1 , 2 );
 
+--SHOW TABLES;
 
 
 SELECT * FROM Products;
@@ -124,7 +124,7 @@ SELECT OrderItems.OrderItemID , Products.Name , OrderItems.quantity FROM OrderIt
 
 SELECT Orders.OrderID , Products.Name , OrderItems.quantity 
 FROM Orders 
-JOIN OrderItems ON OrderItems.OrderID = Orders.OrderID,  
+JOIN OrderItems ON OrderItems.OrderID = Orders.OrderID  
 JOIN Products ON  Products.ProductID = OrderItems.ProductID ; 
 
 SELECT Customer.Name , Orders.OrderID , Products.Name , OrderItems.quantity 
@@ -140,8 +140,8 @@ SELECT Products.Name , SUM(OrderItems.quantity) AS TotalSold FROM Products JOIN 
 
 SELECT Products.Name , SUM(OrderItems.quantity) AS TotalSold 
 FROM Products 
-OIN OrderItems ON OrderItems.ProductID = Products.ProductID  
-GROUP BY Products.Name HAVING SUM(OrderItems.quantity) > 2 
+JOIN OrderItems ON OrderItems.ProductID = Products.ProductID  
+GROUP BY Products.Name HAVING SUM(OrderItems.quantity) > 2 ;
 
 
 SELECT Products.Name , SUM(Products.price * OrderItems.quantity) AS TotalRevenue FROM Products JOIN OrderItems ON OrderItems.ProductID = Products.ProductID  GROUP BY Products.Name;
@@ -158,3 +158,6 @@ SELECT Customer.Name , COUNT(Orders.OrderID) AS totalOrders FROM Customer LEFT J
 SELECT Customer.Name , COUNT(Orders.OrderID) AS totalOrders FROM Customer LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID GROUP BY Customer.Name HAVING COUNT(Orders.OrderID) > 1;
 SELECT Customer.Name , COUNT(Orders.OrderID) AS totalOrders FROM Customer LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID GROUP BY Customer.Name ORDER BY COUNT(Orders.OrderID) DESC;
 SELECT Customer.Name , COUNT(Orders.OrderID) AS totalOrders FROM Customer LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID GROUP BY Customer.Name HAVING COUNT(Orders.OrderID) > 1 ORDER BY COUNT(Orders.OrderID) DESC;
+
+
+SELECT Customer.Name , COALESCE(SUM(Products.price * OrderItems.quantity) , 0) AS  totalPrice FROM customer LEFT JOIN Orders ON customer.CustomerID = Orders.CustomerID LEFT JOIN OrderItems ON Orders.OrderID = OrderItems.OrderID LEFT JOIN Products ON OrderItems.ProductID = Products.ProductID GROUP BY Customer.Name ORDER BY COALESCE(SUM(Products.price * OrderItems.quantity) , 0) DESC ; 
