@@ -115,12 +115,10 @@ def create_order(order_id, customer_id, data):
     order_total =  calculate_order_total(data)
     order_items_copy = data["order_items"].copy()
 
-    new_order= {"order_id": order_id ,"customer_id": customer_id , "customer": customer["name"] , "items": order_items_copy ,"total": order_total }
+    new_order= {"order_id": order_id ,"customer_id": customer_id , "customer": customer["name"] , "items": order_items_copy ,"total": order_total , "status": "Pending" }
     data["Orders"].append(new_order)
     data["order_items"]=[]
     return new_order
-
-
 
 
 def find_order_by_id(data, order_id):
@@ -195,6 +193,33 @@ def get_all_product_sales(data):
         product_summary = get_product_sales_summary(data, product["id"])
         products_summary.append(product_summary)
     return products_summary
+
+def update_order_status(data, order_id, new_status):
+    order = find_order_by_id(data , order_id)
+    if order is None:
+        return False
+    allowed_statuses = ["Pending" , "Preparing", "Completed", "Cancelled"]
+    if new_status  not in allowed_statuses:
+        return False
+    order["status"] = new_status
+    return True
+
+def find_orders_by_status(data, status):
+    results=[]
+    for order in data["Orders"]:
+       if order["status"] == status:
+           results.append(order)
+    return results
+
+def count_orders_by_status(data, status):
+    count = 0 
+    for order in data["Orders"]:
+       if order["status"] == status:
+           count += 1 
+    return count
+
+            
+
 
 #--------------customers--------------
 def add_customer(data, customer_id, name, email):
@@ -287,15 +312,18 @@ create_order(2, 2, data)
 
 #print(count_customers(data))
 #print(find_orders_by_customer(data, 1)_
-print(data["Orders"])
+
 
 
 #print(find_orders_by_customer(data, 1))
 print(count_orders_by_customer(data, 1))
 
 
-print("total quan= " , calculate_product_quantity_sold(data, 1))
-print("total rev= " , calculate_product_revenue(data, 1))
+#print("total quan= " , calculate_product_quantity_sold(data, 1))
+#print("total rev= " , calculate_product_revenue(data, 1))
 
-print(get_product_sales_summary(data, 1))
-print(get_all_product_sales(data))
+update_order_status(data, 1, "Completed")
+print(count_orders_by_status(data, "Completed"))
+
+
+

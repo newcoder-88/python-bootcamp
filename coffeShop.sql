@@ -43,6 +43,8 @@ CREATE TABLE Orders (
 );
 INSERT INTO Orders (OrderID , CustomerID , OrderDate)
 VALUES(1 , 1 , '2026-08-19');
+ALTER TABLE Orders ADD status VARCHAR(20);
+UPDATE Orders SET status ='completed' WHERE OrderID = 1;
 
 CREATE TABLE OrderItems (
     OrderItemID INT PRIMARY KEY,
@@ -165,5 +167,10 @@ SELECT Customer.Name , COALESCE(SUM(Products.price * OrderItems.quantity) , 0) A
 
 SELECT Customer.Name ,COUNT(DISTINCT Orders.OrderID) AS totalOrders , COALESCE(SUM(Products.PRICE * OrderItems.quantity) , 0) AS TotalSpent FROM Customer LEFT JOIN Orders on  Customer.CustomerID = Orders.CustomerID LEFT JOIN OrderItems ON Orders.OrderID = OrderItems.OrderID LEFT JOIN Products ON OrderItems.ProductID = Products.ProductID GROUP BY Customer.Name ORDER BY TotalSpent DESC LIMIT 1 ;
 
-SELECT Products.Name ,COALESCE(SUM(OrderItems.quantity), 0) as totalQuantitySold , COALESCE(SUM(OrderItems.quantity * Products.price), 0) as Revenue FROM Products LEFT JOIN  OrderItems on Products.ProductID = OrderItems.ProductID GROUP BY Products.Name ORDER BY totalQuantitySold DESC;
-SELECT Products.Name ,COALESCE(SUM(OrderItems.quantity), 0) as totalQuantitySold , COALESCE(SUM(OrderItems.quantity * Products.price), 0) as Revenue FROM Products LEFT JOIN  OrderItems on Products.ProductID = OrderItems.ProductID GROUP BY Products.Name ORDER BY Revenue DESC;
+SELECT Products.Name ,COALESCE(SUM(OrderItems.quantity), 0) AS totalQuantitySold , COALESCE(SUM(OrderItems.quantity * Products.price), 0) as Revenue FROM Products LEFT JOIN  OrderItems on Products.ProductID = OrderItems.ProductID GROUP BY Products.Name ORDER BY totalQuantitySold DESC;
+SELECT Products.Name ,COALESCE(SUM(OrderItems.quantity), 0) AS totalQuantitySold , COALESCE(SUM(OrderItems.quantity * Products.price), 0) as Revenue FROM Products LEFT JOIN  OrderItems on Products.ProductID = OrderItems.ProductID GROUP BY Products.Name ORDER BY Revenue DESC;
+
+UPDATE Orders SET status ='Preparing' WHERE OrderID= 3 ;
+SELECT COUNT(*) from Orders WHERE status = 'Completed';
+SELECT COALESCE(SUM(OrderItems.quantity * Products.price), 0) AS Revenue FROM Products LEFT JOIN  OrderItems on Products.ProductID = OrderItems.ProductID LEFT JOIN Orders ON Orders.OrderID = OrderItems.OrderID WHERE status = 'Completed';
+SELECT status , count(*) FROM Orders GROUP BY status;
