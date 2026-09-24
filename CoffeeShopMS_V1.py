@@ -198,8 +198,31 @@ def count_customers(data):
         count += 1
     return count
 
+def calculate_customer_total(data, customer_id):
+    customer = find_customer_by_id(data , customer_id)
+    if customer is None:
+        return None
+    total = 0 
+    for order in data["Orders"] :
+        if order["customer_id"] == customer_id:
+            total += order["total"] 
+    return total
 
+def get_customer_summary(data, customer_id):
+    customer = find_customer_by_id(data , customer_id)
+    if customer is None:
+        return None
+    total_spent = calculate_customer_total(data , customer_id)
+    order_count = count_orders_by_customer(data , customer_id)
+    summary={"customer_id": customer["customer_id"] , "name": customer["name"], "order_count":order_count , "total_spent": total_spent}
+    return summary
 
+def get_all_customer_summaries(data):
+    customers_summary = []
+    for customer in data["customers"]:
+       customer_summary= get_customer_summary(data , customer["customer_id"])
+       customers_summary.append(customer_summary)
+    return customers_summary
 
 #--------------testing--------------
           
@@ -214,14 +237,25 @@ update_product_price(data, "matcha", 30)
 #print(count_orders(data))
 #print(calculate_order_total(data))
 
+#-----------customer-----------
 add_customer(data, 1, "sarah", "test@email.com")
-#print(count_customers(data))
-#print(find_orders_by_customer(data, 1)_
-
 create_order_item(data, 1, 2)
 create_order_item(data, 2, 1)
 
 create_order(1, 1, data)
+#-----------customer-----------
+add_customer(data, 2, "maya", "test@email.com")
+create_order_item(data, 1, 3)
+create_order(2, 2, data)
+
+#print(count_customers(data))
+#print(find_orders_by_customer(data, 1)_
+
+
+
 
 #print(find_orders_by_customer(data, 1))
 print(count_orders_by_customer(data, 1))
+
+
+print("customers  summery= " ,  get_all_customer_summaries(data))

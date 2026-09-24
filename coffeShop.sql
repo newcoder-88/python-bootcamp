@@ -161,3 +161,6 @@ SELECT Customer.Name , COUNT(Orders.OrderID) AS totalOrders FROM Customer LEFT J
 
 
 SELECT Customer.Name , COALESCE(SUM(Products.price * OrderItems.quantity) , 0) AS  totalPrice FROM customer LEFT JOIN Orders ON customer.CustomerID = Orders.CustomerID LEFT JOIN OrderItems ON Orders.OrderID = OrderItems.OrderID LEFT JOIN Products ON OrderItems.ProductID = Products.ProductID GROUP BY Customer.Name ORDER BY COALESCE(SUM(Products.price * OrderItems.quantity) , 0) DESC ; 
+
+
+SELECT Customer.Name ,COUNT(DISTINCT Orders.OrderID) AS totalOrders , COALESCE(SUM(Products.PRICE * OrderItems.quantity) , 0) AS TotalSpent FROM Customer LEFT JOIN Orders on  Customer.CustomerID = Orders.CustomerID LEFT JOIN OrderItems ON Orders.OrderID = OrderItems.OrderID LEFT JOIN Products ON OrderItems.ProductID = Products.ProductID GROUP BY Customer.Name ORDER BY TotalSpent DESC LIMIT 1 ;
