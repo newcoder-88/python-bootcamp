@@ -158,12 +158,49 @@ def count_orders_by_customer(data, customer_id):
             count +=1 
     return count
 
+def calculate_product_quantity_sold(data, product_id):
+    productExist = find_product_by_id(data , product_id)
+    if productExist is None:
+        return None
+    total_quantity = 0 
+    for order in data["Orders"]:
+        for item in order["items"]:
+            if item["product_id"] == product_id:
+                total_quantity += item["quantity"]
+    return total_quantity
+
+def calculate_product_revenue(data, product_id):
+    productExist = find_product_by_id(data , product_id)
+    if productExist is None:
+        return None
+    total_revenue = 0
+    for order in data["Orders"]:
+        for item in order["items"]:
+            if item["product_id"] == product_id:
+                total_revenue += item["total"]
+    return total_revenue
+
+def get_product_sales_summary(data, product_id):
+    product = find_product_by_id(data , product_id)
+    if product is None:
+        return None
+    total_quantity = calculate_product_quantity_sold(data , product_id)
+    total_revenue = calculate_product_revenue(data , product_id)
+    sale_summary = {"product_id": product["id"],"name": product["name"], "quantity_sold": total_quantity , "revenue": total_revenue}
+    return sale_summary
+
+def get_all_product_sales(data):
+    products_summary = []
+    for product in data["Products"]:
+        product_summary = get_product_sales_summary(data, product["id"])
+        products_summary.append(product_summary)
+    return products_summary
 
 #--------------customers--------------
 def add_customer(data, customer_id, name, email):
     if customer_id <= 0:
         return False
-    normalized_name = name.strip()
+    normalized_name = name.strip() 
     normalized_email = email.strip()
     if normalized_name == "":
         return False
@@ -250,12 +287,15 @@ create_order(2, 2, data)
 
 #print(count_customers(data))
 #print(find_orders_by_customer(data, 1)_
-
-
+print(data["Orders"])
 
 
 #print(find_orders_by_customer(data, 1))
 print(count_orders_by_customer(data, 1))
 
 
-print("customers  summery= " ,  get_all_customer_summaries(data))
+print("total quan= " , calculate_product_quantity_sold(data, 1))
+print("total rev= " , calculate_product_revenue(data, 1))
+
+print(get_product_sales_summary(data, 1))
+print(get_all_product_sales(data))
