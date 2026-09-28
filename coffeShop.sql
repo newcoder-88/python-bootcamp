@@ -174,3 +174,13 @@ UPDATE Orders SET status ='Preparing' WHERE OrderID= 3 ;
 SELECT COUNT(*) from Orders WHERE status = 'Completed';
 SELECT COALESCE(SUM(OrderItems.quantity * Products.price), 0) AS Revenue FROM Products LEFT JOIN  OrderItems on Products.ProductID = OrderItems.ProductID LEFT JOIN Orders ON Orders.OrderID = OrderItems.OrderID WHERE status = 'Completed';
 SELECT status , count(*) FROM Orders GROUP BY status;
+
+
+SELECT COUNT(*) AS totalCustomers FROM Customer;
+SELECT COUNT(*) AS totalOrders FROM Orders;
+SELECT COALESCE(SUM(OrderItems.quantity * Products.price),0) FROM Products JOIN OrderItems ON Products.ProductID = OrderItems.ProductID JOIN Orders ON OrderItems.OrderID = Orders.OrderID WHERE status = 'Completed';
+SELECT AVG(ordersTotal) AS averageOrderValue FROM (SELECT SUM(OrderItems.quantity * Products.price) AS orderTotal FROM  Products JOIN OrderItems ON Products.ProductID = OrderItems.ProductID JOIN Orders ON OrderItems.OrderID = Orders.OrderID WHERE status = 'Completed' GROUP BY Orders.OrderID) AS completedOrder; 
+SELECT Customer.Name , SUM(Products.Price * OrderItems.quantity)AS totalspent FROM Customer JOIN Orders ON Customer.CustomerID = Orders.CustomerID JOIN OrderItems ON Orders.OrderID= OrderItems.OrderID JOIN Products ON OrderItems.ProductID = Products.ProductID  GROUP BY Customer.Name ORDER BY totalspent DESC limit 1 ;  
+SELECT Products.Name , SUM(OrderItems.quantity) AS QuantitySold FROM Products JOIN OrderItems ON Products.ProductID = OrderItems.ProductID GROUP BY Products.Name ORDER BY QuantitySold DESC LIMIT 1 ;
+SELECT Products.Name , SUM(OrderItems.quantity * Products.Price) AS Revenue FROM Products JOIN OrderItems ON Products.ProductID = OrderItems.ProductID GROUP BY Products.Name ORDER BY Revenue DESC LIMIT 1 ; 
+SELECT status , COUNT(*) FROM Orders GROUP BY status; 

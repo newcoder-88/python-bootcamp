@@ -286,6 +286,53 @@ def get_all_customer_summaries(data):
        customers_summary.append(customer_summary)
     return customers_summary
 
+#--------------integrated --------------
+def calculate_total_revenue(data):
+    total_rev = 0 
+    for order in data["Orders"]:
+        if order["status"] == "Completed":
+            total_rev += order["total"]
+    return total_rev
+
+def calculate_average_order_value(data):
+    total_rev = calculate_total_revenue(data)
+    total_orders = count_orders_by_status(data , "Completed")
+    if total_orders == 0 :
+        return 0 
+    avg = total_rev / total_orders 
+    return avg 
+
+def find_top_customer(data):
+    customer_summaries = get_all_customer_summaries(data)
+    if len(customer_summaries) == 0 :
+        return None
+    top_spender = customer_summaries[0]
+    for customer in customer_summaries:
+        if customer["total_spent"] > top_spender["total_spent"]:
+            top_spender = customer
+    return top_spender
+
+def find_top_product(data):
+    product_sales = get_all_product_sales(data)
+    if len(product_sales) == 0 : 
+        return None
+    top_product = product_sales[0]
+    for product in product_sales:
+        if product["revenue"] > top_product["revenue"]:
+            top_product = product
+    return top_product
+
+def generate_shop_report(data):
+    total_customer = count_customers(data)
+    total_orders = count_orders(data)
+    total_rev = calculate_total_revenue(data)
+    avg_order_rev = calculate_average_order_value(data)
+    top_customer = find_top_customer(data)
+    top_product = find_top_product(data)
+    report ={"total_customers": total_customer, "total_orders": total_orders, "total_revenue": total_rev, "average_order_value":avg_order_rev ,"top_customer":top_customer , "top_product": top_product}
+    return report
+
+
 #--------------testing--------------
           
 add_product(data, 1, "Matcha", 25)   # True
@@ -299,13 +346,13 @@ update_product_price(data, "matcha", 30)
 #print(count_orders(data))
 #print(calculate_order_total(data))
 
-#-----------customer-----------
+#---------add customer---------
 add_customer(data, 1, "sarah", "test@email.com")
 create_order_item(data, 1, 2)
 create_order_item(data, 2, 1)
 
 create_order(1, 1, data)
-#-----------customer-----------
+#---------add customer---------
 add_customer(data, 2, "maya", "test@email.com")
 create_order_item(data, 1, 3)
 create_order(2, 2, data)
