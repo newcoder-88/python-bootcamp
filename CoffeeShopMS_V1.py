@@ -126,7 +126,7 @@ def find_order_by_id(data, order_id):
         if order["order_id"] == order_id:
             return order
     return None
-order = find_order_by_id(data, 1)
+
 
 def find_orders_by_customer(data, customer_id):
     result=[]
@@ -149,6 +149,7 @@ def count_orders(data):
     for order in data["Orders"]:
         count+=1 
     return count
+
 def count_orders_by_customer(data, customer_id):
     count = 0
     for order in data["Orders"]:
