@@ -1,3 +1,4 @@
+from products import add_product , find_product , find_product_by_id , update_product_price ,remove_product
 data={
     "Products":[],
     "order_items":[],
@@ -6,58 +7,6 @@ data={
     }
 
 # --------------Products--------------
-def add_product(data, product_id, name, price):
-    valid_name = name.strip()
-    normalized_name = valid_name.lower()
-   
-    if price <= 0 : # price is valid
-        return False
-    if valid_name == "": # name null
-        return False
-    for product in data["Products"]:
-        if product["name"].lower() == normalized_name :# name exsist
-            return False
-        
-    new_product = {"id": product_id ,"name": normalized_name.title() , "price": price}
-    data["Products"].append(new_product)
-    return True
-  
-
-
-def find_product(data, name):
-    valid_name = name.strip().lower()
-    for product in data["Products"]:
-        if product["name"].lower() == valid_name:
-            return product
-    return None
-
-
-def update_product_price(data, name, new_price):
-    valid_name = name.strip().lower()
-    for product in data["Products"]:
-        if product["name"].lower() == valid_name:
-            if new_price > 0:
-                product["price"] = new_price
-                return True
-            return False
-    return False
-
-
-
-def remove_product(data, name):
-    valid_name = name.strip().lower()
-    for product in data["Products"]:
-        if product["name"].lower()== valid_name:
-            data["Products"].remove(product)
-            return True
-    return False
-
-
-def find_product_by_id(data, product_id):
-    for product in data["Products"]:
-        if product["id"] == product_id:
-            return product
-    return None
 
 
 #--------------Order_items--------------
@@ -364,14 +313,14 @@ create_order(2, 2, data)
 
 
 #print(find_orders_by_customer(data, 1))
-print(count_orders_by_customer(data, 1))
+#print(count_orders_by_customer(data, 1))
 
 
 #print("total quan= " , calculate_product_quantity_sold(data, 1))
 #print("total rev= " , calculate_product_revenue(data, 1))
 
 update_order_status(data, 1, "Completed")
-print(count_orders_by_status(data, "Completed"))
+#print(count_orders_by_status(data, "Completed"))
 
 
 
