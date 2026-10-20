@@ -1,9 +1,12 @@
-from products import find_product
+from customers import add_customer , find_customer_by_id , remove_customer , count_customers
 data = {
-    "Products": [
-        {"id": 1, "name": "Latte", "price": 15},
-        {"id": 2, "name": "Espresso", "price": 10}
+    "customers": [
+        {"customer_id": 1, "name": "Sarah", "email": "sarah@example.com"},
+        {"customer_id": 2, "name": "Ali", "email": "ali@example.com"},
+        {"customer_id": 3, "name": "Mona", "email": "mona@example.com"}
     ]
 }
 
-print(find_product(data , "Espresso"))
+print(count_customers(data))
+data["customers"] = []
+print(count_customers(data))
