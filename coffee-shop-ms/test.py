@@ -1,12 +1,18 @@
-from customers import add_customer , find_customer_by_id , remove_customer , count_customers
+import orders
 data = {
-    "customers": [
-        {"customer_id": 1, "name": "Sarah", "email": "sarah@example.com"},
-        {"customer_id": 2, "name": "Ali", "email": "ali@example.com"},
-        {"customer_id": 3, "name": "Mona", "email": "mona@example.com"}
-    ]
+    "Products": [
+        {"id": 1, "name": "Latte", "price": 15},
+        {"id": 2, "name": "Espresso", "price": 10}
+    ],
+    "order_items": [],
+    "Orders": [],
+    "customers": [{"customer_id": 1, "name": "Sarah", "email": "sarah@example.com"}]
 }
+orders.create_order_item(data,1,2)
+orders.create_order_item(data,2,1)
+orders.create_order(1 , 1 , data)
 
-print(count_customers(data))
-data["customers"] = []
-print(count_customers(data))
+
+orders.remove_order(data, 1)
+print(orders.count_orders(data))
+print(orders.find_order_by_id(data,1))
