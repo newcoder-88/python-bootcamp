@@ -1,3 +1,13 @@
+# VS Code
 .vscode/
+
+# Old Coffee Shop folders
 coffeSHop/
 coffeeShop/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
