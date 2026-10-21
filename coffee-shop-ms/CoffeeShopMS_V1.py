@@ -22,43 +22,5 @@ data={
 #--------------integrated --------------
 
 #--------------testing--------------
-          
-add_product(data, 1, "Matcha", 25)   # True
-add_product(data, 2, "Latte", 18)    # True
-add_product(data, 3, "MATCHA", 20)   # False
-add_product(data, 4, "   ", 20)     # False
-update_product_price(data, "matcha", 30)
-
-#print(calculate_item_total(data, 1, 3))
-
-#print(count_orders(data))
-#print(calculate_order_total(data))
-
-#---------add customer---------
-add_customer(data, 1, "sarah", "test@email.com")
-create_order_item(data, 1, 2)
-create_order_item(data, 2, 1)
-
-create_order(1, 1, data)
-#---------add customer---------
-add_customer(data, 2, "maya", "test@email.com")
-create_order_item(data, 1, 3)
-create_order(2, 2, data)
-
-#print(count_customers(data))
-#print(find_orders_by_customer(data, 1)_
-
-
-
-#print(find_orders_by_customer(data, 1))
-#print(count_orders_by_customer(data, 1))
-
-
-#print("total quan= " , calculate_product_quantity_sold(data, 1))
-#print("total rev= " , calculate_product_revenue(data, 1))
-
-update_order_status(data, 1, "Completed")
-#print(count_orders_by_status(data, "Completed"))
-
 
 

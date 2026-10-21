@@ -39,6 +39,7 @@ CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
     CustomerID INT ,
     OrderDate DATE ,
+    status VARCHAR(20),
     FOREIGN KEY(CustomerID) REFERENCES Customer(CustomerID) 
 );
 INSERT INTO Orders (OrderID , CustomerID , OrderDate)
@@ -80,8 +81,6 @@ SELECT SUM(Price) FROM Products ;
 SELECT AVG(Price) FROM Products ; 
 SELECT MIN(Price) FROM Products ; 
 SELECT MAX(Price) FROM Products ;
-
-
 
 
 SELECT * FROM Products WHERE Price>15 AND Price<30;
@@ -184,3 +183,4 @@ SELECT Customer.Name , SUM(Products.Price * OrderItems.quantity)AS totalspent FR
 SELECT Products.Name , SUM(OrderItems.quantity) AS QuantitySold FROM Products JOIN OrderItems ON Products.ProductID = OrderItems.ProductID GROUP BY Products.Name ORDER BY QuantitySold DESC LIMIT 1 ;
 SELECT Products.Name , SUM(OrderItems.quantity * Products.Price) AS Revenue FROM Products JOIN OrderItems ON Products.ProductID = OrderItems.ProductID GROUP BY Products.Name ORDER BY Revenue DESC LIMIT 1 ; 
 SELECT status , COUNT(*) FROM Orders GROUP BY status; 
+
