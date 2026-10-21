@@ -17,7 +17,7 @@ WHERE OrderID = 1;
 DESCRIBE Customer;
 
 
-SELECT Customer.Name ,count(Orders.status) AS completed_orders 
+SELECT Customer.Name ,count(Orders.Status) AS completed_orders 
 FROM Customer JOIN Orders ON Customer.CustomerID = Orders.CustomerID 
-WHERE Orders.status = 'Completed' 
+WHERE Orders.Status = 'Completed' 
 GROUP BY Customer.Name ORDER BY completed_orders DESC;
