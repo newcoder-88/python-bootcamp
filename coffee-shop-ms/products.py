@@ -51,3 +51,10 @@ def remove_product(data, name):
             return True
     return False
 
+def get_valid_product(data, product_id):
+    product = find_product_by_id(data, product_id)
+
+    if product is None:
+        raise ValueError("product not found")
+
+    return product

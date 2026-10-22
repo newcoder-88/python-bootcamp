@@ -1,4 +1,4 @@
-from products import find_product_by_id
+from products import find_product_by_id, get_valid_product
 from customers import find_customer_by_id
 
 def calculate_item_total(data, product_id, quantity):
@@ -118,4 +118,14 @@ def count_orders_by_status(data, status):
            count += 1 
     return count
 
+
+def validate_quantity(quantity):
+    if quantity <= 0:
+        raise ValueError("Quantity must be greater than zero")
+    return quantity
             
+def validate_order(data, product_id, quantity):
+    product= get_valid_product(data , product_id)
+    valid_quantity= validate_quantity(quantity)
+    valid_order = {"product": product, "quantity": valid_quantity}
+    return valid_order
