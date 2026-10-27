@@ -69,3 +69,7 @@ SELECT OrderID, CustomerID, OrderDate, Status
 FROM Orders
 WHERE OrderID = 999;
 ROLLBACK;
+
+SELECT *
+FROM Orders
+WHERE OrderID = 999;
