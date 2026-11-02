@@ -50,6 +50,7 @@ SELECT OrderID, Status
 FROM Orders
 WHERE OrderID = 1;
 
+-- Expected error: CHECK constraint rejects invalid status
 UPDATE Orders
 SET Status = 'Banana'
 WHERE OrderID = 1;
