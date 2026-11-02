@@ -1,16 +1,15 @@
 import unittest
 from orders import validate_quantity, validate_order
 
-
-data = {
-    "Products": [
-        {"id": 1, "name": "Latte", "price": 18},
-        {"id": 2, "name": "Espresso", "price": 12}
-    ]
-}
-
-
 class TestValidation(unittest.TestCase):
+    def setUp(self):
+        self.data = {
+            "Products": [
+                {"id": 1, "name": "Latte", "price": 18},
+                {"id": 2, "name": "Espresso", "price": 12}
+            ]
+        }
+
     def test_valid_quantity(self):
         self.assertEqual(validate_quantity(5), 5) 
 
@@ -23,19 +22,26 @@ class TestValidation(unittest.TestCase):
         self.assertEqual(str(context.exception),"Quantity must be greater than zero" )
 
     def test_valid_order(self):
-        result= validate_order(data,2,3)
+        result= validate_order(self.data,2,3)
         self.assertEqual(result["quantity"], 3)
         self.assertEqual(result["product"]["name"], "Espresso")
 
     def test_invalid_order_product(self):
         with self.assertRaises(ValueError):
-            validate_order(data, 999, 3)
+            validate_order(self.data, 999, 3)
 
     def test_invalid_order_quantity(self):
         with self.assertRaises(ValueError):
-            validate_order(data, 2, -3)
+            validate_order(self.data, 2, -3)
 
     def test_invalid_order_product_message(self):
         with self.assertRaises(ValueError) as context:
-            validate_order(data,999,3)
+            validate_order(self.data,999,3)
         self.assertEqual(str(context.exception), "product not found")
+
+    def test_quantity_boundary(self):
+        with self.assertRaises(ValueError) as context:
+            validate_quantity(0)
+        self.assertEqual(str(context.exception),"Quantity must be greater than zero")
+        self.assertEqual(validate_quantity(1), 1)
+        self.assertRaises(ValueError,validate_quantity,-1 )
