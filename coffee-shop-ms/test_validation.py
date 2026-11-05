@@ -63,3 +63,13 @@ class TestValidation(unittest.TestCase):
                 validate_order(self.data, 99, 2)
             self.assertEqual(str(context.exception), "product not found")
             mock_product.assert_called_once_with(self.data, 99)
+
+    def test_validate_order_with_two_mocks(self):
+        with patch("orders.get_valid_product") as mock_product , patch("orders.validate_quantity") as mock_quantity:
+            mock_product.return_value = {"id": 1, "name": "Latte", "price": 18}
+            mock_quantity.return_value = 2
+            result = validate_order(self.data, 1, 2)
+            expected ={"product": mock_product.return_value, "quantity": mock_quantity.return_value}
+            self.assertEqual(result, expected)
+            mock_product.assert_called_once_with(self.data, 1)
+            mock_quantity.assert_called_once_with(2)
